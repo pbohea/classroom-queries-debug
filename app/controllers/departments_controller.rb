@@ -9,7 +9,7 @@ class DepartmentsController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-    matching_dept = Director.where({ :id => the_id })
+    matching_dept = Department.where({ :id => the_id })
     @department = matching_dept.at(0)
 
 
@@ -30,7 +30,8 @@ class DepartmentsController < ApplicationController
 
   def update
     the_id = params.fetch("path_id")
-    @department = Department.where({ :id => the_id }).at(0)
+    matching_dept = Department.where({ :id => the_id })
+    @department = matching_dept.at(0)
 
     @department.name = params.fetch("query_name")
 
@@ -44,8 +45,8 @@ class DepartmentsController < ApplicationController
 
   def destroy
     the_id = params.fetch("path_id")
-    @department = Department.where({ :id => the_id }).at(0)
-
+    matching_dept = Department.where({ :id => the_id })
+    @department = matching_dept.at(0)
     @department.destroy
 
     redirect_to("/departments", { :notice => "Department deleted successfully."} )
